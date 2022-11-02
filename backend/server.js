@@ -38,6 +38,10 @@ app.use(cors());
 //Configure static directory for express
 app.use(express.static('public'));
 
+app.get('/', (req, res) => {
+	res.status(200).send('Hello World!');
+});
+
 //Start express server
 app.listen(port, () => console.log(`Server started on port ${port}`));
 
