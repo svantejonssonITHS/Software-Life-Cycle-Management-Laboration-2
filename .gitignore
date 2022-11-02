@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+
+# React
+dist/
+
+# Environment variables
+*env*
+
+# Visual Studio Code
+.vscode/
+
+# macOS
+.DS_Store
+
