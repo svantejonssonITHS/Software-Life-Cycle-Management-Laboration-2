@@ -1,33 +1,29 @@
 // Configuring dotenv
-require("dotenv").config();
+require('dotenv').config();
 
-import post from "./schema";
-const express = require("express");
+const express = require('express');
 const app = express();
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const mongoose = require("mongoose").MongoClient;
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mongoose = require('mongoose');
 
-const url = "mongodb://localhost:27017";
-const port = 3000;
-let db;
+const post = require('./schema');
+const port = process.env.PORT || 3000;
+const MONGOURI = process.env.MONGOURI || 'mongodb://localhost:27017/';
+const MONGODB = process.env.MONGODB || 'slcm_labb2';
 
 // Connect to MongoDB
-mongoose.connect(
-  url,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-  (err, client) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    db = client.db("postsDatabase");
-    posts = db.collection("posts");
-  }
-);
+const mongoURI = `${MONGOURI}${MONGODB}`;
+mongoose.connect(mongoURI, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Error while connecting to MongoDB using the following mongoURL: "' + mongoURI + '"'));
+db.once('open', function () {
+	console.log('Connection has been established successfully to MongoDB.');
+});
 
 // Configure express with body-parser
 app.use(bodyParser.json());
@@ -37,20 +33,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 //Configure static directory for express
-app.use(express.static("public"));
+app.use(express.static('public'));
 
-app.get("/", (req, res) => {
-  res.status(200).send("Hello World!");
+app.get('/', async (req, res) => {
+	res.status(200).send(await post.find());
 });
 
-app.post("/", (req, res) => {
-  let postContent = req.body.content;
-  post.create({ content: postContent });
-  res.status(200).send("Post submitted");
+app.post('/', async (req, res) => {
+	const postContent = req.body.content;
+	await post.create({ content: postContent });
+	res.status(200).send('Post submitted');
 });
 
 //Start express server
 app.listen(port, () => console.log(`Server started on port ${port}`));
-
-//Export app for vercel hosting
-module.exports = app;
