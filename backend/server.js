@@ -3,29 +3,29 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const mongo = require('mongodb').MongoClient;
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const mongoose = require("mongoose").MongoClient;
 
-const url = 'mongodb://localhost:27017';
+const url = "mongodb://localhost:27017";
 const port = 3000;
 let db;
 
 // Connect to MongoDB
-mongo.connect(
-	url,
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true
-	},
-	(err, client) => {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		db = client.db('postsDatabase');
-		foods = db.collection('posts');
-	}
+mongoose.connect(
+  url,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err, client) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    db = client.db("postsDatabase");
+    foods = db.collection("posts");
+  }
 );
 
 // Configure express with body-parser
