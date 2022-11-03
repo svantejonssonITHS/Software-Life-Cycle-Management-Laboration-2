@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+    mongodb:
+        image: mongo:4.4.9
+        restart: unless-stopped
+        volumes:
+            - mongodb:/data/db
+            - mongodbConfig:/data/configdb
+        networks:
+            - backend
+
+    backend:
+        depends_on:
+            - mongodb
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
+        restart: unless-stopped
+        environment:
+            - NODE_ENV=production
+        networks:
+            - backend
+        ports:
+            - '3000:3000'
+
+volumes:
+    mongodb:
+    mongodbConfig:
+networks:
+    backend:
