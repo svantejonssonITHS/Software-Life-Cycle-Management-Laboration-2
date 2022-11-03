@@ -1,6 +1,5 @@
 // External dependencies
-import { useState, useEffect } from 'react';
-import LogRocket from 'logrocket';
+import { useState } from 'react';
 
 // Internal dependencies
 import reactLogo from './assets/react.svg';
@@ -9,26 +8,10 @@ import CookieConsent from './components/CookieConsent/CookieConsent.jsx';
 
 function App() {
 	const [count, setCount] = useState(0);
-	const [cookieConsent, setCookieConsent] = useState(null);
-
-	useEffect(() => {
-		// If the user has not made a choice yet, do nothing
-		if (cookieConsent === null) return;
-
-		if (cookieConsent) {
-			// If the user has consented, initialize LogRocket and save their choice in Session Storage
-			LogRocket.init(import.meta.env.VITE_LOGROCKET_ID);
-
-			sessionStorage.setItem('cookieConsent', true);
-		} else {
-			// If the user has not consented, save their choice in Session Storage
-			sessionStorage.setItem('cookieConsent', false);
-		}
-	}, [cookieConsent]);
 
 	return (
 		<div className="App">
-			<CookieConsent onConsent={() => setCookieConsent(true)} onDissent={() => setCookieConsent(false)} />
+			<CookieConsent />
 			<div>
 				<a href="https://vitejs.dev" target="_blank">
 					<img src="/vite.svg" className="logo" alt="Vite logo" />
