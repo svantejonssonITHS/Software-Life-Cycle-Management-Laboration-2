@@ -8,7 +8,6 @@ import CookieConsent from './components/CookieConsent/CookieConsent.jsx';
 import Card from './components/Card';
 
 function App() {
-	const [count, setCount] = useState(0);
 	const [posts, setPosts] = useState([
 		{
 			_id: 'de78f925-9434-49b9-b36e-ef97b1310188',
@@ -86,6 +85,19 @@ function App() {
 			createdAt: '2022-02-28T23:48:47Z'
 		}
 	]);
+	const [input, setInput] = useState('');
+
+	function handleSubmit() {
+		setPosts([
+			...posts,
+			{
+				_id: Math.random().toString(36).substr(2, 9),
+				content: input,
+				createdAt: new Date().toISOString()
+			}
+		]);
+		setInput('');
+	}
 
 	return (
 		<main>
@@ -93,14 +105,16 @@ function App() {
 			<div>
 				<p className='inputTitle'>Express your thoughts:</p>
 				<div className='inputWrapper'>
-					<input type='text' placeholder='Write your thoughts here...' className='input' />
-					<button className='inputButton'>Send</button>
+					<input type='text' placeholder='Write your thoughts here...' className='input' value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key == 'Enter' && handleSubmit()} />
+					<button className='inputButton' onClick={handleSubmit} disabled={input.length === 0}>
+						Send
+					</button>
 				</div>
 			</div>
 
 			<div className='cards'>
 				{posts.map((post) => {
-					return <Card content={post.content} createdAt={post.createdAt} />;
+					return <Card key={post._id} content={post.content} createdAt={post.createdAt} />;
 				})}
 			</div>
 		</main>

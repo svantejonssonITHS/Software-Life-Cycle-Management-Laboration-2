@@ -39,6 +39,15 @@ main {
 	border-radius: 0 4px 4px 0;
 }
 
+.inputButton:hover {
+	background-color: #0366d6;
+}
+
+.inputButton:disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
+}
+
 .cards {
 	width: 100%;
 	display: flex;
