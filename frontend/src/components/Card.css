@@ -1,0 +1,20 @@
+.card {
+	background-color: rgb(12, 161, 19);
+	border-radius: 0.5rem;
+	color: white;
+	margin: 0.5rem;
+	margin-left: 0;
+	flex: 1 1 calc((100vw - 2.5rem) / 4);
+	max-width: calc((100vw - 2.5rem) / 4);
+}
+
+.cardDate {
+	font-size: 0.75rem;
+	padding: 0.5rem 0.5rem 0 0.5rem;
+	margin: 0;
+}
+
+.cardContent {
+	margin: 0;
+	padding: 0.5rem;
+}
