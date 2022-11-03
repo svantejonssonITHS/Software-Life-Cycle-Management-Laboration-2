@@ -88,7 +88,7 @@ function App() {
 	]);
 
 	return (
-		<>
+		<main>
 			<CookieConsent />
 			<div>
 				<p className='inputTitle'>Express your thoughts:</p>
@@ -103,7 +103,7 @@ function App() {
 					return <Card content={post.content} createdAt={post.createdAt} />;
 				})}
 			</div>
-		</>
+		</main>
 	);
 }
 

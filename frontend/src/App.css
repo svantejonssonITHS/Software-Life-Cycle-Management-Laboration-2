@@ -1,8 +1,13 @@
+main {
+	margin-left: 0.5rem;
+}
+
 .inputTitle {
 	font-size: 1.2rem;
 	font-weight: 600;
 	color: #000;
 	margin-bottom: 0.2rem;
+	margin-top: 0.5rem;
 }
 
 .inputWrapper {

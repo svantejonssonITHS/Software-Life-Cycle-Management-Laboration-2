@@ -8,6 +8,22 @@
 	max-width: calc((100vw - 2.5rem) / 4);
 }
 
+/* Tablet View */
+@media (max-width: 768px) {
+	.card {
+		flex: 1 1 calc((100vw - 1.5rem) / 2);
+		max-width: calc((100vw - 1.5rem) / 2);
+	}
+}
+
+/* Mobile View */
+@media (max-width: 480px) {
+	.card {
+		flex: 1 1 calc((100vw - 1rem) / 1);
+		max-width: calc((100vw - 1rem) / 1);
+	}
+}
+
 .cardDate {
 	font-size: 0.75rem;
 	padding: 0.5rem 0.5rem 0 0.5rem;
