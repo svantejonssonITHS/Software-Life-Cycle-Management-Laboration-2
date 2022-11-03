@@ -1,13 +1,17 @@
-const express = require("express");
+// Configuring dotenv
+require('dotenv').config();
+
+const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose").MongoClient;
+
 const url = "mongodb://localhost:27017";
 const port = 3000;
-//vi skulle inte ha statisk port nummer eller?
 let db;
 
+// Connect to MongoDB
 mongoose.connect(
   url,
   {
@@ -24,8 +28,22 @@ mongoose.connect(
   }
 );
 
+// Configure express with body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Configure express for CORS
 app.use(cors());
-app.use(express.static("public"));
-app.listen(port);
+
+//Configure static directory for express
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+	res.status(200).send('Hello World!');
+});
+
+//Start express server
+app.listen(port, () => console.log(`Server started on port ${port}`));
+
+//Export app for vercel hosting
+module.exports = app;
