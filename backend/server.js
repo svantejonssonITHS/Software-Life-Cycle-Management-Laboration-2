@@ -1,7 +1,8 @@
 // Configuring dotenv
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
+import post from "./schema";
+const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -24,7 +25,7 @@ mongoose.connect(
       return;
     }
     db = client.db("postsDatabase");
-    foods = db.collection("posts");
+    posts = db.collection("posts");
   }
 );
 
@@ -36,10 +37,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 //Configure static directory for express
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-app.get('/', (req, res) => {
-	res.status(200).send('Hello World!');
+app.get("/", (req, res) => {
+  res.status(200).send("Hello World!");
+});
+
+app.post("/", (req, res) => {
+  let postContent = req.body.content;
+  post.create({ content: postContent });
+  res.status(200).send("Post submitted");
 });
 
 //Start express server
