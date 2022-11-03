@@ -2,13 +2,13 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const mongo = require("mongodb").MongoClient;
+const mongoose = require("mongoose").MongoClient;
 const url = "mongodb://localhost:27017";
 const port = 3000;
 //vi skulle inte ha statisk port nummer eller?
 let db;
 
-mongo.connect(
+mongoose.connect(
   url,
   {
     useNewUrlParser: true,
