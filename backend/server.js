@@ -40,11 +40,17 @@ app.get('/', async (_, res) => {
 });
 
 app.post('/', async (req, res) => {
-	const postContent = req.body.content;
-	await post.create({ content: postContent });
-	res.status(200).send({
-		message: 'Post created successfully'
-	});
+	try {
+		const postContent = req.body.content;
+		await post.create({ content: postContent });
+		res.status(200).send({
+			message: 'Post created successfully'
+		});
+	} catch (error) {
+		res.status(500).send({
+			message: 'Something went wrong while creating the post'
+		});
+	}
 });
 
 //Start express server
