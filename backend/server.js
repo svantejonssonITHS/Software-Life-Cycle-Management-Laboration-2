@@ -35,7 +35,7 @@ app.use(cors());
 //Configure static directory for express
 app.use(express.static('public'));
 
-app.get('/', async (req, res) => {
+app.get('/', async (_, res) => {
 	res.status(200).send(await post.find().sort({ createdAt: -1 }));
 });
 
