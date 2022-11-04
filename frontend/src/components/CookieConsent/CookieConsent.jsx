@@ -3,15 +3,23 @@ import LogRocket from 'logrocket';
 
 import './CookieConsent.css';
 
+const logrocketId = import.meta.env.VITE_LOGROCKET_ID;
+
 function CookieConsent() {
 	const [cookieConsent, setCookieConsent] = useState(sessionStorage.getItem('cookieConsent'));
 
 	useEffect(() => {
+		// If no logrocketId is set, the do not need to consent to cookies
+		if (!logrocketId) {
+			setCookieConsent('true');
+			return;
+		}
+
 		if (cookieConsent === 'true') {
 			// If the user has consented, save their choice in Session Storage and initialize LogRocket monitoring
 			sessionStorage.setItem('cookieConsent', 'true');
 
-			LogRocket.init(import.meta.env.VITE_LOGROCKET_ID);
+			LogRocket.init(logrocketId);
 		} else if (cookieConsent === 'false') {
 			// If the user has not consented, save their choice in Session Storage
 			sessionStorage.setItem('cookieConsent', 'false');
