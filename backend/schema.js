@@ -3,7 +3,8 @@ const { Schema, model } = require('mongoose');
 const postSchema = new Schema({
 	content: {
 		type: String,
-		required: true
+		required: true,
+		maxlength: 35
 	},
 	createdAt: {
 		type: Date,

@@ -15,22 +15,14 @@ const MONGODB = process.env.MONGODB || 'slcm_labb2';
 // Connect to MongoDB
 const mongoURI = `${MONGOURI}${MONGODB}`;
 mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true
 });
 
 const db = mongoose.connection;
-db.on(
-  'error',
-  console.error.bind(
-    console,
-    'Error while connecting to MongoDB using the following mongoURL: "' +
-      mongoURI +
-      '"'
-  )
-);
+db.on('error', console.error.bind(console, 'Error while connecting to MongoDB using the following mongoURL: "' + mongoURI + '"'));
 db.once('open', function () {
-  console.log('Connection has been established successfully to MongoDB.');
+	console.log('Connection has been established successfully to MongoDB.');
 });
 
 // Configure express with body-parser
@@ -43,14 +35,22 @@ app.use(cors());
 //Configure static directory for express
 app.use(express.static('public'));
 
-app.get('/', async (req, res) => {
-  res.status(200).send(await post.find());
+app.get('/', async (_, res) => {
+	res.status(200).send(await post.find().sort({ createdAt: -1 }));
 });
 
 app.post('/', async (req, res) => {
-  const postContent = req.body.content;
-  await post.create({ content: postContent });
-  res.status(200).send('Post submitted');
+	try {
+		const postContent = req.body.content;
+		await post.create({ content: postContent });
+		res.status(200).send({
+			message: 'Post created successfully'
+		});
+	} catch (error) {
+		res.status(500).send({
+			message: 'Something went wrong while creating the post'
+		});
+	}
 });
 
 //Start express server

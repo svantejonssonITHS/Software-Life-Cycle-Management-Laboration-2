@@ -3,23 +3,23 @@
 	color: white;
 	margin: 0.5rem;
 	margin-left: 0;
-	flex: 1 1 calc((100vw - 2.5rem) / 4);
-	max-width: calc((100vw - 2.5rem) / 4);
+	flex: 1 1 calc((100vw - 3rem) / 4);
+	max-width: calc((100vw - 3rem) / 4);
 }
 
 /* Tablet View */
 @media (max-width: 768px) {
 	.card {
-		flex: 1 1 calc((100vw - 1.5rem) / 2);
-		max-width: calc((100vw - 1.5rem) / 2);
+		flex: 1 1 calc((100vw - 2rem) / 2);
+		max-width: calc((100vw - 2rem) / 2);
 	}
 }
 
 /* Mobile View */
 @media (max-width: 480px) {
 	.card {
-		flex: 1 1 calc((100vw - 1rem) / 1);
-		max-width: calc((100vw - 1rem) / 1);
+		flex: 1 1 calc((100vw - 1.5rem) / 1);
+		max-width: calc((100vw - 1.5rem) / 1);
 	}
 }
 
