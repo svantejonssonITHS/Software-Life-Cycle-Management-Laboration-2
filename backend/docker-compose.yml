@@ -18,6 +18,7 @@ services:
         restart: unless-stopped
         environment:
             - NODE_ENV=production
+            - MONGOURI=mongodb://mongodb:27017/
         networks:
             - backend
         ports:
